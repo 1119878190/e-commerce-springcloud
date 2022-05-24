@@ -39,6 +39,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!-- 实现对 Java Mail 的自动化配置 -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-mail</artifactId>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>com.imooc.ecommerce</groupId>
             <artifactId>e-commerce-mcv-config</artifactId>
