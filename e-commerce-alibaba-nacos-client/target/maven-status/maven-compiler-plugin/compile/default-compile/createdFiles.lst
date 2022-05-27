@@ -1,1 +1,3 @@
 com\imooc\ecommerce\NacosClientApplication.class
+com\imooc\ecommerce\controller\NacosClientController.class
+com\imooc\ecommerce\service\NacosClientService.class
