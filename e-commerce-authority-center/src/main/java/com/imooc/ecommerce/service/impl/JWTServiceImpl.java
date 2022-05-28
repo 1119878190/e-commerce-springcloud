@@ -93,7 +93,8 @@ public class JWTServiceImpl implements IJWTService {
         }
         ecommerceUser = new EcommerceUser();
         ecommerceUser.setUsername(usernameAndPassword.getUsername());
-        ecommerceUser.setPassword(usernameAndPassword.getPassword()); //MD5编码以后
+        ecommerceUser.setPassword(usernameAndPassword.getPassword());//MD5编码以后
+        ecommerceUser.setExtraInfo("{}");
 
         // 注册一个新用户，写一条记录到数据表中
         EcommerceUser save = ecommerceUserDao.save(ecommerceUser);
