@@ -1,0 +1,22 @@
+### 登录
+POST 127.0.0.1:9001/imooc/e-commerce/login
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "e10adc3949ba59abbe56e057f20f883e"
+}
+
+### 注册
+POST 127.0.0.1:9001/imooc/e-commerce/register
+Content-Type: application/json
+
+{
+  "username": "test3",
+  "password": "e10adc3949ba59abbe56e057f20f883e"
+}
+
+### 返回示例
+###HTTP/1.1 200 OK
+###e-commerce-user: eyJhbGciOiJSUzI1NiJ9.eyJlLWNvbW1lcmNlLXVzZXIiOiJ7XCJpZFwiOjEyLFwidXNlcm5hbWVcIjpcInRlc3QzXCJ9IiwianRpIjoiYzEzMTI1N2YtMDg5Mi00NjQyLWE1NzQtY2ExMDM5NjU0ZjkyIiwiZXhwIjoxNjU0MDk5MjAwfQ.Y4CQJOOvZ1Qz75eaWHJCdOKmOK4casJvaD1pyCY-Ekuuf2Y5gy2R8Ldis0l7vQXphiPIMPGuHtaQMRQBQlRKJv7fNa0TkMX02S9XJeG11aRTAF1HB8kfVqWb-_nwOdPG8us3qB9Ap7yedHImzUWh6ZPdllcEYoqcVaw_hwp9I6pAP90rez3Xzzs514dkXoZnepC0t6QXWjs6Fg5yQ3g4mBLMF5Ad4K18XwJV50ll0FrlNrKjOcsx8orb3f8V_Z2kDmohochz_79DYvggsEcMqtGvMfyAP_J_JElzLmCF04KNdfdESz310dDp41nW0fxZ_HvRN_iNTR8ajLEdDLOU9A
+###content-length: 0
