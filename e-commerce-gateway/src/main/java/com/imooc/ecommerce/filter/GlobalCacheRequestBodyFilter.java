@@ -26,9 +26,11 @@ public class GlobalCacheRequestBodyFilter implements GlobalFilter, Ordered {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
+        // 是否是登录或注册请求
         boolean isLoginOrRegister = exchange.getRequest().getURI().getPath().contains(GatewayConstant.LOGIN_URI)
                 || exchange.getRequest().getURI().getPath().contains(GatewayConstant.REGISTER_URI);
 
+        // 若不是登录或注册，直接返回，不用缓存
         if (null == exchange.getRequest().getHeaders().getContentType() || !isLoginOrRegister) {
             return chain.filter(exchange);
         }

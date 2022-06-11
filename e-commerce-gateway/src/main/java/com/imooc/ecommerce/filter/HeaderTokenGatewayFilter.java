@@ -10,6 +10,7 @@ import reactor.core.publisher.Mono;
 
 /**
  * HTTP 请求头部携带  Token 验证过滤器
+ * @see com.imooc.ecommerce.filter.factory.HeaderTokenGatewayFilterFactory 中 返回了该filter 并在路由配置文件中json指定了改过滤器
  */
 public class HeaderTokenGatewayFilter implements GatewayFilter, Ordered {
 
@@ -22,7 +23,7 @@ public class HeaderTokenGatewayFilter implements GatewayFilter, Ordered {
             return chain.filter(exchange);
         }
 
-        // 如果没有，则标记此次请求没有泉下，并结束这次请求
+        // 如果没有，则标记此次请求没有权限，并结束这次请求
         exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
         return exchange.getResponse().setComplete();
     }

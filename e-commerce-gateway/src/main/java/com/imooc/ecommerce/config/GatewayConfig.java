@@ -27,12 +27,12 @@ public class GatewayConfig {
     public static String NACOS_NAMESPACE;
 
     /**
-     * data-id
+     * data-id  nacos中gateway配置信息的data-id
      */
     public static String NACOS_ROUTE_DATA_ID;
 
     /**
-     * 分组 id
+     * 分组 id  nacos中gateway配置信息的group
      */
     public static String NACOS_ROUTE_GROUP;
 
