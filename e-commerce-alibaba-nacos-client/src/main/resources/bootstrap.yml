@@ -18,7 +18,19 @@ spring:
         metadata:
           management:
             context-path: ${server.servlet.context-path}/actuator
-
+  kafka:
+    bootstrap-servers: 192.168.218.128:9092
+    producer:
+      #发送失败重试3次
+      retries: 3
+    consumer:
+      # 从最近的开始消费
+      auto-offset-reset: latest
+  zipkin:
+    sender:
+      type: kafka
+    base-url: http://192.168.218.128:9411/
+    enabled: true
 # 暴露端点
 management:
   endpoints:

@@ -1,3 +1,10 @@
 ### 查询服务实例信息
 GET http://127.0.0.1:8000/ecommerce-nacos-client/nacos-client/service-instance
 Accept: application/json
+
+
+### 查看 Sleuth 跟踪信息
+GET http://127.0.0.1:9001/imooc/ecommerce-nacos-client/sleuth/trace-info
+Accept: application/json
+e-commerce-user: eyJhbGciOiJSUzI1NiJ9.eyJlLWNvbW1lcmNlLXVzZXIiOiJ7XCJpZFwiOjEwLFwidXNlcm5hbWVcIjpcInRlc3QxXCJ9IiwianRpIjoiM2QwODUzODEtYjg3Mi00OTE0LTllODctOWQ0Njc5MDhkNzk5IiwiZXhwIjoxNjU0OTYzMjAwfQ.AlSzz9d4VOlIHvnuD9A43k_RdT4UC1DPGxYel-YvllIE7UtflEF14AXc58Jtee4cJnm6tUN1w81bFGNcOMborGVtic0F-qy0AlG5EchL6qLxOdup5rGXgDySAuXPdwRR9fqzkVK_H_QI5O2rnWanupv6wxxd_rp6UgIq2Mxh_x_w3X8qt2Jwv6Z421QpsxD_8aCoeIaM3-3MLo-rqFBfoiR6DZ9svfWpv64sCV_MLnhpaKKZ4nXww4Lww0tfLseBhHDw-K1bSiwaLeLreN97xuBG9N8PfK7NM-56Y_CIXBMxAQwP0GoatW1BsLbAHHCMSGPeWqBnI9TwqS7ZGW7R6w
+token: imooc
