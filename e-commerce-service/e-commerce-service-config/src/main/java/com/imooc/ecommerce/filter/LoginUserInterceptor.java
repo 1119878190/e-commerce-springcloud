@@ -5,6 +5,7 @@ import com.imooc.ecommerce.constant.CommonConstant;
 import com.imooc.ecommerce.util.TokenParseUtil;
 import com.imooc.ecommerce.vo.LoginUserInfo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,6 +33,13 @@ public class LoginUserInterceptor implements HandlerInterceptor {
      */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+
+
+        // 部分请求不需要带有身份信息，即白名单
+        if (checkWhiteListUrl(request.getRequestURI())) {
+            return true;
+        }
+
         // 先从 http header 中拿到 token
         String token = request.getHeader(CommonConstant.JWT_USER_INFO_KEY);
 
@@ -78,5 +86,21 @@ public class LoginUserInterceptor implements HandlerInterceptor {
         if (Objects.nonNull(AccessContext.getLoginUserInfo())) {
             AccessContext.clearLoginUserInfo();
         }
+    }
+
+
+    /**
+     * 白名单，若在白名单中不用拦截校验
+     * <p>
+     * 过滤 Swagger 请求
+     *
+     * @param url
+     * @return
+     */
+    private boolean checkWhiteListUrl(String url) {
+        return StringUtils.containsAny(
+                url,
+                "springfox", "swagger", "v2", "webjars", "doc.html"
+        );
     }
 }
