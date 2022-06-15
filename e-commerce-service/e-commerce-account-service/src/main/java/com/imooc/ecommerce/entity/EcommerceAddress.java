@@ -65,7 +65,7 @@ public class EcommerceAddress {
      * 创建时间
      */
     @CreatedDate
-    @Column(name = "create_Time", nullable = false)
+    @Column(name = "create_time", nullable = false)
     private Date createTime;
 
     /**
