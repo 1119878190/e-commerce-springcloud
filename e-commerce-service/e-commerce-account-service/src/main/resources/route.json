@@ -1,0 +1,51 @@
+[
+  {
+    "id": "e-commerce-nacos-client",
+    "predicates": [
+      {
+        "args": {
+          // /imooc为网关的context path ,ecommerce-nacos-client为nacos服务的contextPath
+          "pattern": "/imooc/ecommerce-nacos-client/**"
+        },
+        "name": "Path"
+      }
+    ],
+    // 转发到 nacos注册服务 servr-id
+    "uri": "lb://e-commerce-nacos-client",
+    "filters": [
+      {
+        // 自定义的局部过滤器
+        "name": "HeaderToken"
+      },
+      {
+        // 内置局部过滤器，跳过前缀 /imooc(服务内部调用最前面的/imooc是网关的，所以要去掉)
+        "name": "StripPrefix",
+        "args": {
+          "parts": "1"
+        }
+      }
+    ]
+  },
+  {
+    "id": "e-commerce-account-service",
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/imooc/ecommerce-account-service/**"
+        },
+        "name": "Path"
+      }
+    ],
+    // 转发到 nacos注册服务 servr-id
+    "uri": "lb://e-commerce-account-service",
+    "filters": [
+      {
+        // 内置局部过滤器，跳过前缀 /imooc
+        "name": "StripPrefix",
+        "args": {
+          "parts": "1"
+        }
+      }
+    ]
+  }
+]
