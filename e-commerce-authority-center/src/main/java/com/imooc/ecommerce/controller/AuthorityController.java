@@ -4,6 +4,7 @@ package com.imooc.ecommerce.controller;
 import com.alibaba.fastjson.JSON;
 import com.imooc.ecommerce.annotation.IgnoreResponseAdvice;
 import com.imooc.ecommerce.service.IJWTService;
+import com.imooc.ecommerce.util.TokenParseUtil;
 import com.imooc.ecommerce.vo.JwtToken;
 import com.imooc.ecommerce.vo.UsernameAndPassword;
 import lombok.extern.slf4j.Slf4j;
@@ -54,5 +55,14 @@ public class AuthorityController {
     public JwtToken register(@RequestBody UsernameAndPassword usernameAndPassword) throws Exception {
         log.info("register user with param: [{}]", JSON.toJSONString(usernameAndPassword));
         return new JwtToken(ijwtService.registerUserAndGenerateToken(usernameAndPassword));
+    }
+
+    /**
+     * 解析 token
+     *
+     * @See TokenParseUtil
+     */
+    public void test(String token) throws Exception {
+        TokenParseUtil.parseUserInfoFromToken(token);
     }
 }

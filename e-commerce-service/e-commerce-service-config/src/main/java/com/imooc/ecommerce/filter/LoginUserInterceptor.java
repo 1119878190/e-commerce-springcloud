@@ -100,7 +100,7 @@ public class LoginUserInterceptor implements HandlerInterceptor {
     private boolean checkWhiteListUrl(String url) {
         return StringUtils.containsAny(
                 url,
-                "springfox", "swagger", "v2", "webjars", "doc.html"
+                "springfox", "swagger", "v2", "webjars", "doc.html", "error"
         );
     }
 }

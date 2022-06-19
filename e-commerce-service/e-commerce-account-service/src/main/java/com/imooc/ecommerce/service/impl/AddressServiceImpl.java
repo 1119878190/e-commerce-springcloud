@@ -78,7 +78,7 @@ public class AddressServiceImpl implements IAddressService {
     public AddressInfo getAddressInfoById(Long id) {
 
         EcommerceAddress ecommerceAddress = ecommerceAddressDao.findById(id).orElse(null);
-        if (Objects.nonNull(ecommerceAddress)) {
+        if (Objects.isNull(ecommerceAddress)) {
             throw new RuntimeException("address is not exist");
         }
 
