@@ -49,8 +49,6 @@ public class AsyncServiceImpl implements IAsyncService {
         log.info("async task running taskId: [{}]", taskId);
 
         StopWatch stopWatch = StopWatch.createStarted();
-        stopWatch.start();
-
 
         // 1. 如果是 goodsInfo 中存在重复的商品，不保存，直接返回，记录错误日志
         // 请求数据是否合法的标记

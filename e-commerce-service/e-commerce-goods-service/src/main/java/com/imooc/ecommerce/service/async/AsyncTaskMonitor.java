@@ -66,7 +66,7 @@ public class AsyncTaskMonitor {
         // 设置异步任务其它的信息
         taskInfo.setEndTime(new Date());
         taskInfo.setStatus(status);
-        taskInfo.setTotalTime(String.valueOf(taskInfo.getEndTime().getTime() - taskInfo.getEndTime().getTime()));
+        taskInfo.setTotalTime(String.valueOf(taskInfo.getEndTime().getTime() - taskInfo.getStartTime().getTime()));
         asyncTaskManager.setTaskInfo(taskInfo);
 
         return result;

@@ -1,0 +1,24 @@
+[
+  {
+    "id": "e-ecommerce-goods-service",
+    "predicates": [
+      {
+        "args": {
+          "pattern": "/imooc/ecommerce-goods-service/**"
+        },
+        "name": "Path"
+      }
+    ],
+    // 转发到 nacos注册服务 servr-id
+    "uri": "lb://e-commerce-goods-service",
+    "filters": [
+      {
+        // 内置局部过滤器，跳过前缀 /imooc,真正的url
+        "name": "StripPrefix",
+        "args": {
+          "parts": "1"
+        }
+      }
+    ]
+  }
+]
