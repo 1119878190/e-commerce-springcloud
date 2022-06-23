@@ -70,7 +70,12 @@ public class GoodsServiceImpl implements IGoodsService {
         List<Object> goodsIds = tableId.getIds().stream()
                 .map(i -> i.getId().toString()).collect(Collectors.toList());
 
-        List<Object> cachedSimpleGoodsInfo = stringRedisTemplate.opsForHash().multiGet(GoodsConstant.ECOMMERCE_GOODS_DICT_KEY, goodsIds);
+        // FIXME 如果 cache 中查不到 goodsId 对应的数据, 返回的是 null, [null, null],所以要过滤出null的结果
+        List<Object> cachedSimpleGoodsInfo = stringRedisTemplate.opsForHash()
+                .multiGet(GoodsConstant.ECOMMERCE_GOODS_DICT_KEY, goodsIds)
+                .stream()
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
 
         // 如果从redis 中查到了商品信息 ，分两种情况
         if (CollectionUtils.isNotEmpty(cachedSimpleGoodsInfo)) {
