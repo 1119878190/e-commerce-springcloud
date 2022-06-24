@@ -1,5 +1,6 @@
 package com.imooc.ecommerce.controller;
 
+import com.imooc.ecommerce.service.communication.AuthorityFeignClient;
 import com.imooc.ecommerce.service.communication.UseRestTemplateService;
 import com.imooc.ecommerce.service.communication.UseRibbonService;
 import com.imooc.ecommerce.vo.JwtToken;
@@ -18,10 +19,12 @@ public class CommunicationController {
 
     private final UseRestTemplateService useRestTemplateService;
     private final UseRibbonService useRibbonService;
+    private AuthorityFeignClient authorityFeignClient;
 
-    public CommunicationController(UseRestTemplateService useRestTemplateService, UseRibbonService useRibbonService) {
+    public CommunicationController(UseRestTemplateService useRestTemplateService, UseRibbonService useRibbonService, AuthorityFeignClient authorityFeignClient) {
         this.useRestTemplateService = useRestTemplateService;
         this.useRibbonService = useRibbonService;
+        this.authorityFeignClient = authorityFeignClient;
     }
 
     @PostMapping("/rest-template")
@@ -40,7 +43,12 @@ public class CommunicationController {
     }
 
     @PostMapping("/thinkInRibbon")
-    public JwtToken thinkInRibbon(@RequestBody UsernameAndPassword usernameAndPassword){
+    public JwtToken thinkInRibbon(@RequestBody UsernameAndPassword usernameAndPassword) {
         return useRibbonService.thinkingInRibbon(usernameAndPassword);
+    }
+
+    @PostMapping("/token-by-feign")
+    public JwtToken getTokenByFeign(@RequestBody UsernameAndPassword usernameAndPassword) {
+        return authorityFeignClient.getTokenByFeign(usernameAndPassword);
     }
 }

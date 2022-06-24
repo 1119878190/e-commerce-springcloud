@@ -37,3 +37,14 @@ Content-Type: application/json
   "password": "e10adc3949ba59abbe56e057f20f883e"
 
 }
+
+
+### 通过 OpenFeign 获取 Token
+POST http://127.0.0.1:8000/ecommerce-nacos-client/communication/token-by-feign
+Content-Type: application/json
+
+{
+  "username": "test1",
+  "password": "e10adc3949ba59abbe56e057f20f883e"
+
+}
