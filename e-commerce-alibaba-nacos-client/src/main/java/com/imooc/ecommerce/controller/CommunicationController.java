@@ -1,6 +1,7 @@
 package com.imooc.ecommerce.controller;
 
 import com.imooc.ecommerce.service.communication.UseRestTemplateService;
+import com.imooc.ecommerce.service.communication.UseRibbonService;
 import com.imooc.ecommerce.vo.JwtToken;
 import com.imooc.ecommerce.vo.UsernameAndPassword;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommunicationController {
 
     private final UseRestTemplateService useRestTemplateService;
+    private final UseRibbonService useRibbonService;
 
-    public CommunicationController(UseRestTemplateService useRestTemplateService) {
+    public CommunicationController(UseRestTemplateService useRestTemplateService, UseRibbonService useRibbonService) {
         this.useRestTemplateService = useRestTemplateService;
+        this.useRibbonService = useRibbonService;
     }
 
     @PostMapping("/rest-template")
@@ -31,4 +34,13 @@ public class CommunicationController {
         return useRestTemplateService.getTokenFromAuthorityServiceWithLoadBalancer(usernameAndPassword);
     }
 
+    @PostMapping("/ribbon")
+    public JwtToken getTokenFromAuthorityServiceByRibbon(@RequestBody UsernameAndPassword usernameAndPassword) {
+        return useRibbonService.getTokenFromAuthorityServiceByRibbon(usernameAndPassword);
+    }
+
+    @PostMapping("/thinkInRibbon")
+    public JwtToken thinkInRibbon(@RequestBody UsernameAndPassword usernameAndPassword){
+        return useRibbonService.thinkingInRibbon(usernameAndPassword);
+    }
 }

@@ -57,20 +57,20 @@ public class UseRestTemplateService {
      */
     public JwtToken getTokenFromAuthorityServiceWithLoadBalancer(UsernameAndPassword usernameAndPassword) {
 
-        // 第二种方案：通过注册中心拿到服务器的信息(是所有的示例)，再去发起调用
+        // 第二种方案：通过注册中心拿到服务器的信息(是所有的示例)，选择一个，再去发起调用
         ServiceInstance serviceInstance = loadBalancerClient.choose(
                 CommonConstant.AUTHORITY_CENTER_SERVICE_ID
         );
         log.info("Nacos Client info: [{}],[{}],[{}]",
-                serviceInstance.getServiceId(),serviceInstance.getInstanceId(),
+                serviceInstance.getServiceId(), serviceInstance.getInstanceId(),
                 JSON.toJSONString(serviceInstance.getMetadata()));
 
-       String requestUrl =  String.format(
+        String requestUrl = String.format(
                 "http://%s:%s/ecommerce-authority-center/authority/token",
                 serviceInstance.getHost(),
                 serviceInstance.getPort()
         );
-        log.info("login request url and body: [{}],[{}]",requestUrl,JSON.toJSONString(usernameAndPassword));
+        log.info("login request url and body: [{}],[{}]", requestUrl, JSON.toJSONString(usernameAndPassword));
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
