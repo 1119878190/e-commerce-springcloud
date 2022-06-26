@@ -1,6 +1,7 @@
 package com.imooc.ecommerce.controller;
 
 import com.imooc.ecommerce.service.communication.AuthorityFeignClient;
+import com.imooc.ecommerce.service.communication.UseFeignApi;
 import com.imooc.ecommerce.service.communication.UseRestTemplateService;
 import com.imooc.ecommerce.service.communication.UseRibbonService;
 import com.imooc.ecommerce.vo.JwtToken;
@@ -20,11 +21,16 @@ public class CommunicationController {
     private final UseRestTemplateService useRestTemplateService;
     private final UseRibbonService useRibbonService;
     private AuthorityFeignClient authorityFeignClient;
+    private UseFeignApi useFeignApi;
 
-    public CommunicationController(UseRestTemplateService useRestTemplateService, UseRibbonService useRibbonService, AuthorityFeignClient authorityFeignClient) {
+    public CommunicationController(UseRestTemplateService useRestTemplateService,
+                                   UseRibbonService useRibbonService,
+                                   AuthorityFeignClient authorityFeignClient,
+                                   UseFeignApi useFeignApi) {
         this.useRestTemplateService = useRestTemplateService;
         this.useRibbonService = useRibbonService;
         this.authorityFeignClient = authorityFeignClient;
+        this.useFeignApi = useFeignApi;
     }
 
     @PostMapping("/rest-template")
@@ -50,5 +56,10 @@ public class CommunicationController {
     @PostMapping("/token-by-feign")
     public JwtToken getTokenByFeign(@RequestBody UsernameAndPassword usernameAndPassword) {
         return authorityFeignClient.getTokenByFeign(usernameAndPassword);
+    }
+
+    @PostMapping("/thinking-in-feign")
+    public JwtToken thinkingInFeign(@RequestBody UsernameAndPassword usernameAndPassword) {
+        return useFeignApi.thinkingInFeign(usernameAndPassword);
     }
 }
