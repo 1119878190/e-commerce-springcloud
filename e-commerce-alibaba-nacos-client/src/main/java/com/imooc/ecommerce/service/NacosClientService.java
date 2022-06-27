@@ -32,9 +32,9 @@ public class NacosClientService {
 //        }
 
         // 测试 NacosClientHystrixCommand 熔断
-        throw new RuntimeException("has exception");
+//        throw new RuntimeException("has exception");
 
-//        log.info("request nacos client to get service instance info: [{}]", serverId);
-//        return discoveryClient.getInstances(serverId);
+        log.info("request nacos client to get service instance info: [{}]", serverId);
+        return discoveryClient.getInstances(serverId);
     }
 }

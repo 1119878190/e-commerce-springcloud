@@ -1,7 +1,12 @@
-### 根据提供的 serviceId 获取实例信息
+### 根据提供的 serviceId 获取实例信息（注解）
 GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/hystrix-command-annotation?serviceId=e-commerce-nacos-client
 Accept: application/json
 
-### 根据提供的 serviceId 获取实例信息
+### 根据提供的 serviceId 获取实例信息(编程--线程池隔离)
 GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/simple-hystrix-command?serviceId=e-commerce-nacos-client
+Accept: application/json
+
+
+### 根据提供的 serviceId 获取实例信息（编程--信号量隔离）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/hystrix-observable-command?serviceId=e-commerce-nacos-client
 Accept: application/json

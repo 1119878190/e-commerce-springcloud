@@ -16,6 +16,8 @@ import static com.netflix.hystrix.HystrixCommandProperties.ExecutionIsolationStr
  * Hystrix 舱壁模式 ：
  * 1.线程池
  * 2.信号量： 算法 + 数据结构， 有限状态机
+ *
+ * @apiNote  注意  : HystrixCommand默认是通过线程池隔离(若想用信号量详见 @see NacosClientHystrixObservableCommand)
  */
 @Slf4j
 public class NacosClientHystrixCommand extends HystrixCommand<List<ServiceInstance>> {
