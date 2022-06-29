@@ -15,3 +15,15 @@ Accept: application/json
 ### hystrix 请求缓存（编码方式）
 GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/cache-hystrix-command?serviceId=e-commerce-nacos-client
 Accept: application/json
+
+### hystrix 请求缓存（编码方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix//cache-annotation-01?serviceId=e-commerce-nacos-client
+Accept: application/json
+
+### hystrix 请求缓存（编码方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix//cache-annotation-02?serviceId=e-commerce-nacos-client
+Accept: application/json
+
+### hystrix 请求缓存（编码方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix//cache-annotation-03?serviceId=e-commerce-nacos-client
+Accept: application/json
