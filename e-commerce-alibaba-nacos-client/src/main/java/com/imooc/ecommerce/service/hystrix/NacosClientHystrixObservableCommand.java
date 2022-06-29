@@ -69,6 +69,7 @@ public class NacosClientHystrixObservableCommand extends HystrixObservableComman
                     if (!subscriber.isUnsubscribed()) {
                         log.info("subscriber command task: [{}], [{}]", JSON.toJSONString(serviceIds), Thread.currentThread().getName());
                         serviceIds.forEach(
+                                // 调用自己的方法
                                 item -> subscriber.onNext(nacosClientService.getServiceInstances(item))
                         );
                         subscriber.onCompleted();

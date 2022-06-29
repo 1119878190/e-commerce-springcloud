@@ -10,3 +10,8 @@ Accept: application/json
 ### 根据提供的 serviceId 获取实例信息（编程--信号量隔离）
 GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/hystrix-observable-command?serviceId=e-commerce-nacos-client
 Accept: application/json
+
+
+### hystrix 请求缓存（编码方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/cache-hystrix-command?serviceId=e-commerce-nacos-client
+Accept: application/json

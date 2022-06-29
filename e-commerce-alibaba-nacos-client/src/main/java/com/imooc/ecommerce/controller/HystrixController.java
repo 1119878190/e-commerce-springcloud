@@ -3,6 +3,7 @@ package com.imooc.ecommerce.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.imooc.ecommerce.service.NacosClientService;
+import com.imooc.ecommerce.service.hystrix.CacheHystrixCommand;
 import com.imooc.ecommerce.service.hystrix.NacosClientHystrixCommand;
 import com.imooc.ecommerce.service.hystrix.NacosClientHystrixObservableCommand;
 import com.imooc.ecommerce.service.hystrix.UseHystrixCommandAnnotation;
@@ -51,7 +52,7 @@ public class HystrixController {
 
 
     /**
-     * 通过编程的方式实现Hystrix 熔断降级
+     * 通过编程的方式实现Hystrix 熔断降级(线程池)
      *
      * @param serviceId
      * @return
@@ -95,6 +96,14 @@ public class HystrixController {
         return serviceInstance01;
     }
 
+    /**
+     * 通过编程的方式实现Hystrix 熔断降级(信号量)
+     *
+     * @param serviceId
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     @GetMapping("/hystrix-observable-command")
     public List<ServiceInstance> getServiceInstanceByServiceIdObservable(@RequestParam String serviceId) {
 
@@ -127,5 +136,35 @@ public class HystrixController {
 
         log.info("observable command result is : [{}],[{}]", JSON.toJSONString(result), Thread.currentThread().getName());
         return result.get(0);
+    }
+
+    /**
+     * Hystrix 亲求缓存：一次controller调用中，多次调用service，只会发起一次
+     *
+     * @param serviceId
+     */
+    @GetMapping("/cache-hystrix-command")
+    public void HystrixCommand(@RequestParam String serviceId) {
+
+        // 使用缓存 command ，发起两次请求
+        // 因为我们第二次传递了相同的key即serviceId，所以只执行了一次，第二次是通过缓存拿到信息
+        CacheHystrixCommand cacheHystrixCommand1 = new CacheHystrixCommand(nacosClientService, serviceId);
+        CacheHystrixCommand cacheHystrixCommand2 = new CacheHystrixCommand(nacosClientService, serviceId);
+
+        List<ServiceInstance> result1 = cacheHystrixCommand1.execute();
+        List<ServiceInstance> result2 = cacheHystrixCommand2.execute();
+
+
+        log.info("result1,result2: [{}],[{}]", JSON.toJSONString(result1), JSON.toJSONString(result2));
+
+        // 清除缓存
+        CacheHystrixCommand.flushRequestCache(serviceId);
+
+
+        CacheHystrixCommand cacheHystrixCommand3 = new CacheHystrixCommand(nacosClientService, serviceId);
+        CacheHystrixCommand cacheHystrixCommand4 = new CacheHystrixCommand(nacosClientService, serviceId);
+        List<ServiceInstance> result3 = cacheHystrixCommand3.execute();
+        List<ServiceInstance> result4 = cacheHystrixCommand4.execute();
+        log.info("result3,result4: [{}],[{}]", JSON.toJSONString(result3), JSON.toJSONString(result4));
     }
 }
