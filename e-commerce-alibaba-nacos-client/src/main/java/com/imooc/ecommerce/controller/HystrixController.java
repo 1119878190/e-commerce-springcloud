@@ -4,6 +4,7 @@ package com.imooc.ecommerce.controller;
 import com.alibaba.fastjson.JSON;
 import com.imooc.ecommerce.service.NacosClientService;
 import com.imooc.ecommerce.service.hystrix.*;
+import com.imooc.ecommerce.service.hystrix.requestMerge.NacosClientCollapseCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -170,8 +171,8 @@ public class HystrixController {
 
 
     @GetMapping("/cache-annotation-01")
-    public List<ServiceInstance> useCacheByAnnotation01(@RequestParam String serviceId){
-        log.info("use cache by annotation01 to get nacos client info : [{}]",serviceId);
+    public List<ServiceInstance> useCacheByAnnotation01(@RequestParam String serviceId) {
+        log.info("use cache by annotation01 to get nacos client info : [{}]", serviceId);
         List<ServiceInstance> result01 = cacheHystrixCommandAnnotation.useCacheByAnnotation01(serviceId);
         List<ServiceInstance> result02 = cacheHystrixCommandAnnotation.useCacheByAnnotation01(serviceId);
         // 清除缓存
@@ -181,8 +182,8 @@ public class HystrixController {
     }
 
     @GetMapping("/cache-annotation-02")
-    public List<ServiceInstance> useCacheByAnnotation02(@RequestParam String serviceId){
-        log.info("use cache by annotation02 to get nacos client info : [{}]",serviceId);
+    public List<ServiceInstance> useCacheByAnnotation02(@RequestParam String serviceId) {
+        log.info("use cache by annotation02 to get nacos client info : [{}]", serviceId);
         List<ServiceInstance> result01 = cacheHystrixCommandAnnotation.useCacheByAnnotation02(serviceId);
         List<ServiceInstance> result02 = cacheHystrixCommandAnnotation.useCacheByAnnotation02(serviceId);
         // 清除缓存
@@ -192,14 +193,62 @@ public class HystrixController {
     }
 
     @GetMapping("/cache-annotation-03")
-    public List<ServiceInstance> useCacheByAnnotation03(@RequestParam String serviceId){
-        log.info("use cache by annotation03 to get nacos client info : [{}]",serviceId);
+    public List<ServiceInstance> useCacheByAnnotation03(@RequestParam String serviceId) {
+        log.info("use cache by annotation03 to get nacos client info : [{}]", serviceId);
         List<ServiceInstance> result01 = cacheHystrixCommandAnnotation.useCacheByAnnotation03(serviceId);
         List<ServiceInstance> result02 = cacheHystrixCommandAnnotation.useCacheByAnnotation03(serviceId);
         // 清除缓存
         cacheHystrixCommandAnnotation.flushCacheByAnnotation03(serviceId);
 
         return cacheHystrixCommandAnnotation.useCacheByAnnotation03(serviceId);
+    }
+
+    /**
+     * 编程实现请求合并
+     */
+    @GetMapping("/request-merge")
+    public void requestMerge() throws ExecutionException, InterruptedException {
+
+        // 这三个会被合并 我们设置的合并的超时时间为300ms
+        NacosClientCollapseCommand collapseCommand01 = new NacosClientCollapseCommand(nacosClientService, "e-commerce-nacos-client1");
+        NacosClientCollapseCommand collapseCommand02 = new NacosClientCollapseCommand(nacosClientService, "e-commerce-nacos-client2");
+        NacosClientCollapseCommand collapseCommand03 = new NacosClientCollapseCommand(nacosClientService, "e-commerce-nacos-client3");
+
+        Future<List<ServiceInstance>> future01 = collapseCommand01.queue();
+        Future<List<ServiceInstance>> future02 = collapseCommand02.queue();
+        Future<List<ServiceInstance>> future03 = collapseCommand03.queue();
+
+        future01.get();
+        future02.get();
+        future03.get();
+
+        Thread.sleep(2000);
+
+
+        NacosClientCollapseCommand collapseCommand004 = new NacosClientCollapseCommand(nacosClientService, "e-commerce-nacos-client4");
+        Future<List<ServiceInstance>> future04 = collapseCommand004.queue();
+        future04.get();
+    }
+
+
+    /**
+     * <h2>注解方式实现请求合并</h2>
+     */
+    @GetMapping("/request-merge-annotation")
+    public void requestMergeAnnotation() throws ExecutionException, InterruptedException {
+
+        Future<List<ServiceInstance>> future01 = nacosClientService.findNacosClientInfo("e-commerce-nacos-client1");
+        Future<List<ServiceInstance>> future02 = nacosClientService.findNacosClientInfo("e-commerce-nacos-client2");
+        Future<List<ServiceInstance>> future03 = nacosClientService.findNacosClientInfo("e-commerce-nacos-client3");
+
+        future01.get();
+        future02.get();
+        future03.get();
+
+        Thread.sleep(2000);
+
+        Future<List<ServiceInstance>> future04 = nacosClientService.findNacosClientInfo("e-commerce-nacos-client4");
+        future04.get();
     }
 
 }

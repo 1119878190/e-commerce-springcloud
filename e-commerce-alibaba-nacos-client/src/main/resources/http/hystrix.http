@@ -16,14 +16,23 @@ Accept: application/json
 GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/cache-hystrix-command?serviceId=e-commerce-nacos-client
 Accept: application/json
 
-### hystrix 请求缓存（编码方式）
-GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix//cache-annotation-01?serviceId=e-commerce-nacos-client
+### hystrix 请求缓存（注解方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/cache-annotation-01?serviceId=e-commerce-nacos-client
 Accept: application/json
 
-### hystrix 请求缓存（编码方式）
-GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix//cache-annotation-02?serviceId=e-commerce-nacos-client
+### hystrix 请求缓存（注解方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/cache-annotation-02?serviceId=e-commerce-nacos-client
 Accept: application/json
 
-### hystrix 请求缓存（编码方式）
-GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix//cache-annotation-03?serviceId=e-commerce-nacos-client
+### hystrix 请求缓存（注解方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/cache-annotation-03?serviceId=e-commerce-nacos-client
+Accept: application/json
+
+
+### hystrix 请求合并（编码方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/request-merge
+Accept: application/json
+
+### hystrix 请求合并（注解方式）
+GET  http://127.0.0.1:8000/ecommerce-nacos-client/hystrix/request-merge-annotation
 Accept: application/json
