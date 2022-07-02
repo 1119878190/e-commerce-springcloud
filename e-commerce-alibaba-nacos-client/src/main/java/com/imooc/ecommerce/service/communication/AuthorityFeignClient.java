@@ -1,5 +1,6 @@
 package com.imooc.ecommerce.service.communication;
 
+import com.imooc.ecommerce.service.communication.hystrix.AuthorityFeignClientFallbackFactory;
 import com.imooc.ecommerce.vo.JwtToken;
 import com.imooc.ecommerce.vo.UsernameAndPassword;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -11,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * <h1>与 Authority 服务通信的 Feign Client 接口定义</h1>
  *
  * @FeignClient value :注册服务中心的名称 serverId
+ * fallback ，fallbackFactory: 集成 hystrix 的  兜底方法，同时只能用一个
  */
-@FeignClient(contextId = "AuthorityFeignClient", value = "e-commerce-authority-center")
+@FeignClient(
+        contextId = "AuthorityFeignClient", value = "e-commerce-authority-center",
+//        fallback = AuthorityFeignClientFallback.class
+        fallbackFactory = AuthorityFeignClientFallbackFactory.class
+)
 public interface AuthorityFeignClient {
 
     /**
