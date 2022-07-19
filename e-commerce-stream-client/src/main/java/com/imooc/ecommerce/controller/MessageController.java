@@ -1,4 +1,4 @@
-package com.imooc.ecommerce.stream.controller;
+package com.imooc.ecommerce.controller;
 
 import com.imooc.ecommerce.stream.DefaultSendService;
 import com.imooc.ecommerce.stream.custom.CustomSendService;
